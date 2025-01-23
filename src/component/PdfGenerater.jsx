@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Document, Page, Text, Image, StyleSheet, View } from '@react-pdf/renderer';
 import { Font } from '@react-pdf/renderer';
 import './style.css'
@@ -155,12 +155,6 @@ const styles = StyleSheet.create({
 
 const PdfGenerater = ({ data}) => {
 
-
-  useEffect(() => {
-    console.log("pdf data", data);
-
-  }, [data])
-
   // const calculateTotal=()=>{
   //   const sum=0;
   //   data.map((item,index)=>(
@@ -171,9 +165,7 @@ const PdfGenerater = ({ data}) => {
 
     <Document style={{ width: '100%' }}>
       <Page size="A4" style={{ ...styles.page, ...styles.doc_page, marginRight: '5%', marginLeft: '5%', marginTop: '5%', width: '90%' }}>
-        {/* <a href={blobUrl} download="generated.pdf">
-            <button>Download PDF</button>
-          </a> */}
+
         <View style={{ width: '90%', ...styles.main_view_container, marginRight: '5%', marginLeft: '5%', marginTop: '5%', marginBottom: '10px' }}>
           {/* first div */}
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', columnGap: '25%', marginBottom: '20px' }}>

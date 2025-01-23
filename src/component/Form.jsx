@@ -55,16 +55,13 @@ const Form = ({ getData,setBlob }) => {
     const [business, setBusiness] = useState({ name: '', address: '', email: '', phno: '' ,logo:''});
     const [clientDetail, setClientDetail] = useState({ cname: '', mail: '', address1: '', address2: '' });
     const [accountDetail,setAccountDetail]=useState({bname:'',achname:'',acno:''})
-    // const [imageData,setImageData] = useState(null);
 
     const [allItems, setAllItems] = useState([{ product: '', price: '' }, { product: '', price: '' }, { product: '', price: '' }, { product: '', price: '' }]);
-    // const [item,setItems]=useState({product:'',price:''});
     const [total, setTotal] = useState(0);
     const [tax, setTax] = useState(0);
     const [totalDue, setTotalDue] = useState(0);
 
     const [data, setData] = useState([]);
-    // const [blobUrl, setBlobUrl] = useState(null);
     const [previewShow,setPreview]=useState(false);
 
 
@@ -107,9 +104,6 @@ const Form = ({ getData,setBlob }) => {
         const reader=new FileReader();
         reader.onloadend=()=>{
             setBusiness({...business,logo:reader.result})
-            // setImageData(reader.result);
-            
-            // console.log(reader.result);
             
         }
         if(file){
@@ -123,9 +117,7 @@ const Form = ({ getData,setBlob }) => {
     const makeBill = () => {
         const Data = [clientDetail, business, invoice,allItems,{total:total},{tax:tax},{totalDue:totalDue},accountDetail];
         setData(Data);
-        getData(Data);
-        // console.log(Data,"this is your data");
-        
+        getData(Data);        
         generatePdfBlob();
 
     }
@@ -133,16 +125,11 @@ const Form = ({ getData,setBlob }) => {
     const generatePdfBlob = async () => {
         const blob = await pdf(<PdfGenerater data={data}  />).toBlob();
         const url = URL.createObjectURL(blob);
-        // setBlobUrl(url);
         setBlob(url);
         
         setPreview(true);
     };
 
-// useEffect(()=>{
-//     console.log(data);
-    
-// })
     return (
         <div style={{
             margin: 'auto',
