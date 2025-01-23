@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PdfGeneretor from './component/PdfGenerater';
-import { PDFDownloadLink , PDFViewer, pdf} from '@react-pdf/renderer';
+// import PdfGeneretor from './component/PdfGenerater';
+// import { PDFDownloadLink , PDFViewer, pdf} from '@react-pdf/renderer';
 import Form from './component/Form';
 import './component/style.css'
 
@@ -14,9 +14,7 @@ function App() {
   const getBlob=(blob)=>{ 
     setBlob(blob);
   }
-  const handleNullData=()=>{
-    alert('null')
-  }
+ 
   // const generatePdfBlob = async () => {
   //   const blob = await pdf(<PdfGeneretor data={data} />).toBlob();
   //   const url = URL.createObjectURL(blob);
@@ -25,7 +23,7 @@ function App() {
 
   return (
     <div className="App">
-      <Form getData={dataFromForm} setBlob={getBlob} />
+      <Form getData={dataFromForm} setBlob={getBlob} data={data} blaob={blob}/>
       {/* <h1>Generate and Download PDF</h1>
       
       <PDFDownloadLink

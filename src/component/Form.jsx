@@ -55,7 +55,7 @@ const Form = ({ getData,setBlob }) => {
     const [business, setBusiness] = useState({ name: '', address: '', email: '', phno: '' ,logo:''});
     const [clientDetail, setClientDetail] = useState({ cname: '', mail: '', address1: '', address2: '' });
     const [accountDetail,setAccountDetail]=useState({bname:'',achname:'',acno:''})
-    const [imageData,setImageData] = useState(null);
+    // const [imageData,setImageData] = useState(null);
 
     const [allItems, setAllItems] = useState([{ product: '', price: '' }, { product: '', price: '' }, { product: '', price: '' }, { product: '', price: '' }]);
     // const [item,setItems]=useState({product:'',price:''});
@@ -64,7 +64,7 @@ const Form = ({ getData,setBlob }) => {
     const [totalDue, setTotalDue] = useState(0);
 
     const [data, setData] = useState([]);
-    const [blobUrl, setBlobUrl] = useState(null);
+    // const [blobUrl, setBlobUrl] = useState(null);
     const [previewShow,setPreview]=useState(false);
 
 
@@ -77,16 +77,19 @@ const Form = ({ getData,setBlob }) => {
     const AddItem = () => {
         setAllItems([...allItems, { product: '', price: '' }]);
     }
-    const calculateTotal = () => {
-        return allItems.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
-    }
+   
+    
     const calculateTotalAmount = (total, tax) => {
         return total + (tax / 100) * total;
     };
     useEffect(() => {
+        const calculateTotal = () => {
+            return allItems.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+        }
         const totalAmount = calculateTotal();
         setTotal(totalAmount);
         setTotalDue(calculateTotalAmount(totalAmount, tax));
+        
     }, [allItems, tax]);
 
     const handleClient = (e) => {
@@ -104,7 +107,7 @@ const Form = ({ getData,setBlob }) => {
         const reader=new FileReader();
         reader.onloadend=()=>{
             setBusiness({...business,logo:reader.result})
-            setImageData(reader.result);
+            // setImageData(reader.result);
             
             // console.log(reader.result);
             
@@ -130,7 +133,7 @@ const Form = ({ getData,setBlob }) => {
     const generatePdfBlob = async () => {
         const blob = await pdf(<PdfGenerater data={data}  />).toBlob();
         const url = URL.createObjectURL(blob);
-        setBlobUrl(url);
+        // setBlobUrl(url);
         setBlob(url);
         
         setPreview(true);
@@ -142,7 +145,6 @@ const Form = ({ getData,setBlob }) => {
 // })
     return (
         <div style={{
-            margin: 'auto',
             margin: 'auto',
             display: 'flex',
             flexDirection: 'column',
@@ -306,7 +308,7 @@ const Form = ({ getData,setBlob }) => {
                     <PDFViewer width="100%" height="100%">
                         <PdfGenerater data={data}/>
                     </PDFViewer>
-                    <a href="#" onClick={()=>setPreview(false)}>close</a>
+                    <a href="/" onClick={()=>setPreview(false)}>close</a>
                 </div>
                 )
             }

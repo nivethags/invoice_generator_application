@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    flexDirection: 'column',
     padding: '2%',
   },
   main_view_container: {
@@ -279,7 +278,7 @@ const PdfGenerater = ({ data}) => {
             borderTop: ' 1px solid black',
             borderBottom: ' 1px solid black',
             padding: ' 10px 10px',
-            justifyContent: ' space-between', ...styles.Items
+            ...styles.Items
           }}>
             <Text style={{ ...styles.Text }}>Total</Text>
             <Text style={{ ...styles.Text }}>{data[4]?.total}</Text>
