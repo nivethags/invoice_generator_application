@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { pdf, PDFViewer, StyleSheet } from "@react-pdf/renderer";
 import './style.css'
 import PdfGenerater from "./PdfGenerater";
-const Form = ({ getData,setBlob }) => {
+const Form = ({ getData, setBlob }) => {
     const styles = StyleSheet.create({
         mainDiv: {
             display: 'flex', flexDirection: 'column', flexWrap: 'wrap', rowGap: '20px',
@@ -52,9 +52,9 @@ const Form = ({ getData,setBlob }) => {
 
 
     const [invoice, setInvoice] = useState({ invoiceNo: '', issueDate: '', dueDate: '' });
-    const [business, setBusiness] = useState({ name: '', address: '', email: '', phno: '' ,logo:''});
+    const [business, setBusiness] = useState({ name: '', address: '', email: '', phno: '', logo: '' });
     const [clientDetail, setClientDetail] = useState({ cname: '', mail: '', address1: '', address2: '' });
-    const [accountDetail,setAccountDetail]=useState({bname:'',achname:'',acno:''})
+    const [accountDetail, setAccountDetail] = useState({ bname: '', achname: '', acno: '' })
 
     const [allItems, setAllItems] = useState([{ product: '', price: '' }, { product: '', price: '' }, { product: '', price: '' }, { product: '', price: '' }]);
     const [total, setTotal] = useState(0);
@@ -62,7 +62,8 @@ const Form = ({ getData,setBlob }) => {
     const [totalDue, setTotalDue] = useState(0);
 
     const [data, setData] = useState([]);
-    const [previewShow,setPreview]=useState(false);
+    const [previewShow, setPreview] = useState(false);
+    const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
 
 
     const handleData = (index, e) => {
@@ -74,8 +75,8 @@ const Form = ({ getData,setBlob }) => {
     const AddItem = () => {
         setAllItems([...allItems, { product: '', price: '' }]);
     }
-   
-    
+
+
     const calculateTotalAmount = (total, tax) => {
         return total + (tax / 100) * total;
     };
@@ -86,7 +87,7 @@ const Form = ({ getData,setBlob }) => {
         const totalAmount = calculateTotal();
         setTotal(totalAmount);
         setTotalDue(calculateTotalAmount(totalAmount, tax));
-        
+
     }, [allItems, tax]);
 
     const handleClient = (e) => {
@@ -99,37 +100,59 @@ const Form = ({ getData,setBlob }) => {
 
         setBusiness(prevBusiness => ({ ...prevBusiness, [name]: value }));
     }
-    const handleImageUpload=(e)=>{
-        const file=e.target.files[0];
-        const reader=new FileReader();
-        reader.onloadend=()=>{
-            setBusiness({...business,logo:reader.result})
-            
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setBusiness({ ...business, logo: reader.result })
+
         }
-        if(file){
+        if (file) {
             reader.readAsDataURL(file);
         }
     }
-    const handleBankDetail=(e)=>{
-        const {name,value}=e.target;
-        setAccountDetail(prevBankDetails=>({...prevBankDetails,[name]:value}));
+    const handleBankDetail = (e) => {
+        const { name, value } = e.target;
+        setAccountDetail(prevBankDetails => ({ ...prevBankDetails, [name]: value }));
     }
     const makeBill = () => {
-        const Data = [clientDetail, business, invoice,allItems,{total:total},{tax:tax},{totalDue:totalDue},accountDetail];
+        const Data = [clientDetail, business, invoice, allItems, { total: total }, { tax: tax }, { totalDue: totalDue }, accountDetail];
         setData(Data);
-        getData(Data);        
+        getData(Data);
         generatePdfBlob();
 
     }
 
     const generatePdfBlob = async () => {
-        const blob = await pdf(<PdfGenerater data={data}  />).toBlob();
+        const blob = await pdf(<PdfGenerater data={data} />).toBlob();
         const url = URL.createObjectURL(blob);
         setBlob(url);
-        
+
         setPreview(true);
     };
-
+    // const handleDownloadPDF = async () => {
+    //     const blob = await pdf(<MyDocument data={data} />).toBlob();
+    //     const url = URL.createObjectURL(blob);
+      
+    //     // Create a temporary link and trigger the download
+    //     const link = document.createElement("a");
+    //     link.href = url;
+    //     link.download = "dynamic-document.pdf";
+    //     document.body.appendChild(link);
+    //     link.click();
+    //     document.body.removeChild(link);
+    //   };
+    const handleOpenPDF = async () => {
+        // Generate PDF as a Blob
+        const blob = await pdf(<PdfGenerater data={data} />).toBlob();
+    
+        // Create a URL for the Blob
+        const url = URL.createObjectURL(blob);
+    
+        // Open the generated PDF in a new browser tab or window
+        window.open(url, "_blank");
+      };
+      
     return (
         <div style={{
             margin: 'auto',
@@ -139,7 +162,7 @@ const Form = ({ getData,setBlob }) => {
             padding: '4%',
         }}>
 
-            <div className="invoice" style={{...styles.mainDiv,display:'relative'}}>
+            <div className="invoice" style={{ ...styles.mainDiv, display: 'relative' }}>
                 <div className="title">
                     <h5>Invoice Details</h5>
                 </div>
@@ -160,7 +183,7 @@ const Form = ({ getData,setBlob }) => {
                 </div>
             </div>
 
-            <div className="bank-detail" style={{...styles.mainDiv,display:'relative'}}>
+            <div className="bank-detail" style={{ ...styles.mainDiv, display: 'relative' }}>
                 <div className="title">
                     <h5>Bank Details</h5>
                 </div>
@@ -168,7 +191,7 @@ const Form = ({ getData,setBlob }) => {
 
                     <div className="form-group d-flex align-items-center">
                         <label htmlFor="" style={{ ...styles.label }}>Bank Name:</label>
-                        <input type="text" name="bname" id="" className="form-control" onChange={(e) =>handleBankDetail(e) } />
+                        <input type="text" name="bname" id="" className="form-control" onChange={(e) => handleBankDetail(e)} />
                     </div>
                     <div className="form-group d-flex align-items-center">
                         <label htmlFor="" style={{ ...styles.label }} className="holder">Account Holder's Name:</label>
@@ -176,11 +199,11 @@ const Form = ({ getData,setBlob }) => {
                     </div>
                     <div className="form-group d-flex align-items-center">
                         <label htmlFor="" style={{ ...styles.label }}>Account No:</label>
-                        <input type="text" name="acno" id="" className="form-control" onChange={(e) =>handleBankDetail(e)} />
+                        <input type="text" name="acno" id="" className="form-control" onChange={(e) => handleBankDetail(e)} />
                     </div>
                 </div>
             </div>
-            <div  className="business-client" style={{ display: 'flex', justifyContent: 'center', alignItems: 'baseline' }}>
+            <div className="business-client" style={{ display: 'flex', justifyContent: 'center', alignItems: 'baseline' }}>
 
 
                 <div className="about-company" style={{ ...styles.mainDiv, justifyContent: 'flex-end' }}>
@@ -289,7 +312,31 @@ const Form = ({ getData,setBlob }) => {
                 </div>
 
             </div>
-            { data  && previewShow && (
+{
+    data && previewShow &&(
+        <div>
+        {isMobile ? (
+            <div className="mobile">
+             {handleOpenPDF()}
+            <a href="/" onClick={()=>setPreview(false)}>close</a>
+
+            </div>
+            // <button onClick={handleOpenPDF}>makeBill</button>
+        ) : (
+            <div style={{ position:'absolute',top:'50%',left:'10%', width:'80vw',height:'100vh'}}>
+                <PDFViewer width="100%" height="100%">
+                    <PdfGenerater data={data} />
+                </PDFViewer>
+                <a href="/" onClick={()=>setPreview(false)}>close</a>
+
+            </div>
+        )}
+    </div>
+    )
+}
+          
+
+            {/* { data  && previewShow && (
                     <div className="preview" style={{position:'absolute',top:'10%',left:'10%', width:'70vw',height:'70vh'}} >
                     <h3>Inline Viewer:</h3>
                     <PDFViewer width="100%" height="100%">
@@ -298,8 +345,8 @@ const Form = ({ getData,setBlob }) => {
                     <a href="/" onClick={()=>setPreview(false)}>close</a>
                 </div>
                 )
-            }
-           
+            } */}
+
 
 
         </div>
