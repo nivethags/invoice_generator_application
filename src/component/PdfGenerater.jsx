@@ -180,10 +180,10 @@ const PdfGenerater = ({ data}) => {
 
             <View style={{ ...styles.invoice_header, display: 'flex', flexDirection: 'column', rowGap: '2%' }} >
               <Text style={{ letterSpacing: '10px', fontWeight: '500' }}>INVOICE</Text>
-              <Text style={{ fontWeight: '500', letterSpacing: '2px' }}>{data[1]?.name || 'null'}</Text>
-              <Text>{data[1]?.address || 'null'}</Text>
-              <Text>{data[1]?.phno || 'null'}</Text>
-              <Text>{data[1]?.email || 'null'}</Text>
+              <Text style={{ fontWeight: '500', letterSpacing: '2px' }}>{data[1]?.name || "Not Mentioned"}</Text>
+              <Text>{data[1]?.address || "Not Mentioned"}</Text>
+              <Text>{data[1]?.phno || "Not Mentioned"}</Text>
+              <Text>{data[1]?.email || "Not Mentioned"}</Text>
             </View>
 
           </View>
@@ -194,42 +194,42 @@ const PdfGenerater = ({ data}) => {
             <View style={{ display: 'flex', flexDirection: 'column', }}>
               <View style={{ ...styles.view }}>
                 <Text style={{ fontWeight: '400', ...styles.Text }}>ISSUE TO:</Text>
-                <Text style={{ ...styles.Text }}>{data[1]?.name || 'null'}</Text>
+                <Text style={{ ...styles.Text }}>{data[1]?.name || "Not Mentioned"}</Text>
                 {/* <Text>name</Text>  */}
                 {/* <Text style={styles.p}>Client Details: {data[0]?.clientDetail || 'N/A'}</Text>  */}
 
               </View>
               <View style={{ ...styles.view }}>
                 <Text style={{ ...styles.Text }}>Client Name:</Text>
-                <Text style={{ ...styles.Text }}>{data[0]?.cname || 'null'}</Text>
+                <Text style={{ ...styles.Text }}>{data[0]?.cname || "Not Mentioned"}</Text>
               </View>
               <View style={{ ...styles.view }}>
                 <Text style={{ ...styles.Text }}>Addres Line :</Text>
-                <Text style={{ ...styles.Text }}>{data[0]?.address1 || 'null'}</Text>
+                <Text style={{ ...styles.Text }}>{data[0]?.address1 || "Not Mentioned"}</Text>
               </View>
 
               <View style={{ ...styles.view }}>
                 <Text style={{ ...styles.Text }}>Addres Line :</Text>
-                <Text style={{ ...styles.Text }}>{data[0]?.address2 || 'null'}</Text>
+                <Text style={{ ...styles.Text }}>{data[0]?.address2 || "Not Mentioned"}</Text>
               </View>
               <View style={{ ...styles.view }}>
                 <Text style={{ ...styles.Text }}>Email Address:</Text>
-                <Text style={{ ...styles.Text }}>{data[0]?.mail || 'null'}</Text>
+                <Text style={{ ...styles.Text }}>{data[0]?.mail || "Not Mentioned"}</Text>
               </View>
             </View>
 
             <View className="invoice-cont" style={{ ...styles.invoice_cont }} >
               <View style={{ ...styles.view }}>
                 <Text style={{ ...styles.Text }}>INVOICE NO:</Text>
-                <Text style={{ ...styles.Text }}>{data[2]?.invoiceNo || 'null'}</Text>
+                <Text style={{ ...styles.Text }}>{data[2]?.invoiceNo || "Not Mentioned"}</Text>
               </View>
               <View style={{ ...styles.view }}>
                 <Text style={{ ...styles.Text }}>Issue Date:</Text>
-                <Text style={{ ...styles.Text }}>{data[2]?.issueDate || 'null'}</Text>
+                <Text style={{ ...styles.Text }}>{data[2]?.issueDate || "Not Mentioned"}</Text>
               </View>
               <View style={{ ...styles.view }}>
                 <Text style={{ ...styles.Text }}>Due Date:</Text>
-                <Text style={{ ...styles.Text }}>{data[2]?.dueDate || 'null'}</Text>
+                <Text style={{ ...styles.Text }}>{data[2]?.dueDate || "Not Mentioned"}</Text>
               </View>
             </View>
           </View>
@@ -240,8 +240,8 @@ const PdfGenerater = ({ data}) => {
             </View>
             {Array.isArray(data[3]) && data[3].map((item, index) => (
               <View key={index} style={{ ...styles.Items }}>
-                <Text style={{ ...styles.li, ...styles.Text }}>{item?.product || 'null'}</Text>
-                <Text style={{ ...styles.li, ...styles.Text }}>{item?.price || 'null'}</Text >
+                <Text style={{ ...styles.li, ...styles.Text }}>{item?.product || "Not Mentioned"}</Text>
+                <Text style={{ ...styles.li, ...styles.Text }}>{item?.price || "Not Mentioned"}</Text >
               </View>
             ))
             }
@@ -273,27 +273,27 @@ const PdfGenerater = ({ data}) => {
             ...styles.Items
           }}>
             <Text style={{ ...styles.Text }}>Total</Text>
-            <Text style={{ ...styles.Text }}>{data[4]?.total}</Text>
+            <Text style={{ ...styles.Text }}>{data[4]?.total || "Not Mentioned"}</Text>
           </View>
-          <View>
+          <View style={{marginLeft:"auto"}}>
             <div className="total-amount" style={{ ...styles.Items }}>
               <Text style={{ ...styles.li, ...styles.Text }}>TOTAL</Text >
-              <Text style={{ ...styles.li, ...styles.Text }}>{data[4]?.total}</Text >
-            </div>
+              <Text style={{ ...styles.li, ...styles.Text }}>{data[4]?.total || "Not Mentioned"}₹</Text >
+            </div>₹
             <div className="total-amount" style={{ ...styles.Items }}>
               <Text style={{ ...styles.li, ...styles.Text }}>TAX</Text >
-              <Text style={{ ...styles.li, ...styles.Text }}>{data[5]?.tax}</Text >
+              <Text style={{ ...styles.li, ...styles.Text }}>{data[5]?.tax  || "Not Mentioned"} %</Text >
             </div>
             <div className="total-amount" style={{ ...styles.Items }}>
               <Text style={{ ...styles.li, ...styles.Text }}>AMOUNT DUE</Text >
-              <Text style={{ ...styles.li, ...styles.Text }}>{data[6]?.totalDue}</Text >
+              <Text style={{ ...styles.li, ...styles.Text }}>{data[6]?.totalDue || "Not Mentioned"}₹</Text >
             </div>
           </View>
           <View className="footer" style={{ ...styles.footer, position: 'relative', height: 'auto', width: '100%', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <View style={{ maxWidth: '60%' }}>
               <Text style={{ fontWeight: '500', ...styles.Text }}>BANK DETAILS</Text>
-              <Text style={{ ...styles.Text }}>Bank Name:{data[7]?.bname}</Text>
-              <Text style={{ ...styles.Text }}>Account Holder's Name :{data[7]?.achname}</Text>
+              <Text style={{ ...styles.Text }}>Bank Name:{data[7]?.bname || "Not Mentioned"}</Text>
+              <Text style={{ ...styles.Text }}>Account Holder's Name :{data[7]?.achname || "Not Mentioned"}</Text>
               <Text style={{ ...styles.Text }}>Account No:{data[7]?.acno}</Text>
             </View>
             <View>

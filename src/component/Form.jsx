@@ -293,15 +293,15 @@ const Form = ({ getData, setBlob }) => {
 
                             <tr>
                                 <td style={{ ...styles.Table }}> total</td>
-                                <td style={{ ...styles.Table }}>{total}</td>
+                                <td style={{ ...styles.Table }}> ₹ {total}</td>
                             </tr>
                             <tr>
                                 <td>Tax</td>
-                                <td><input type="number" name="tax" id="" onChange={(e) => setTax(e.target.value)} /> </td>
+                                <td><input type="number" name="tax" id="" onChange={(e) => setTax(e.target.value)} /> % </td>
                             </tr>
                             <tr >
-                                <td style={{ ...styles.Table }}>Total Due</td>
-                                <td style={{ ...styles.Table }}>{totalDue}</td>
+                                <td style={{ ...styles.Table }}> Total Due</td>
+                                <td style={{ ...styles.Table }}> ₹{totalDue}</td>
                             </tr>
 
                         </tbody>
@@ -317,8 +317,9 @@ const Form = ({ getData, setBlob }) => {
         <div>
         {isMobile ? (
             <div className="mobile">
+                            <a href="/" onClick={()=>setPreview(false)} >X</a>
+
              {handleOpenPDF()}
-            <a href="/" onClick={()=>setPreview(false)}>close</a>
 
             </div>
             // <button onClick={handleOpenPDF}>makeBill</button>
